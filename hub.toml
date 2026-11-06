@@ -1,0 +1,66 @@
+# Configuração do hub da organização.
+# O build (build.py) varre os repositórios da org, encontra todos os .html e monta a página inicial.
+# Na maior parte dos casos ninguém precisa mexer aqui: basta commitar um .html num repo público da org.
+
+org = "ceia-pdc-slms"
+site_url = "https://ceia-pdc-slms.github.io"
+
+title = "PDC · SLMs e Multiagentes"
+eyebrow = "CEIA · UFG · 2026–2027"
+lede = "Laboratórios interativos, aulas, documentos e resultados dos times do projeto de SLMs e multiagentes. Tudo o que os times publicam nos repositórios da organização aparece aqui."
+
+# Repositórios que nunca entram (o próprio hub entra pela pasta posts/).
+skip_repos = ["ceia-pdc-slms.github.io", ".github"]
+
+# Arquivos ignorados em todos os repositórios (padrões com **, relativos à raiz do repo).
+exclude = [".github/**", "**/node_modules/**", "**/_*.html", "**/vendor/**"]
+
+# Tipo de cada página: vale a primeira regra que casar.
+# `match` testa o caminho do arquivo; `text` testa título + descrição (regex, sem diferenciar maiúsculas).
+# Uma página pode escolher o próprio tipo com <meta name="hub:kind" content="laboratorio">.
+kinds = [
+  { match = "posts/**", kind = "post" },
+  { match = "**/*leaderboard*", kind = "leaderboard" },
+  { match = "**/*placar*", kind = "leaderboard" },
+  { match = "testbench/**", kind = "ferramenta" },
+  { match = "**/laboratorios/**", kind = "laboratorio" },
+  { text = "laborat|simulador|interativ|por dentro", kind = "laboratorio" },
+  { match = "docs/**", kind = "documento" },
+  { match = "apresentacoes/**", kind = "aula" },
+]
+default_kind = "pagina"
+
+# Rótulos [singular, plural], na ordem em que aparecem nos filtros.
+[labels]
+post = ["Post", "Posts"]
+leaderboard = ["Leaderboard", "Leaderboards"]
+laboratorio = ["Laboratório", "Laboratórios"]
+ferramenta = ["Ferramenta", "Ferramentas"]
+aula = ["Aula", "Aulas"]
+documento = ["Documento", "Documentos"]
+pagina = ["Página", "Páginas"]
+
+# ---------------------------------------------------------------------------
+# Por repositório (opcional). Sem nada aqui, todo repo PÚBLICO entra:
+#   - se o repo já tem GitHub Pages, o hub só aponta para o site dele;
+#   - se não tem, o hub copia o repo para /<nome-do-repo>/ e publica junto.
+# Repos PRIVADOS só entram com publish = true, e isso torna o conteúdo público.
+# ---------------------------------------------------------------------------
+
+[repos.pdc-inferencia]
+title = "Compressão & Testbench"
+description = "Frente de compressão, bancada de medição e infraestrutura de inferência: laboratórios, apresentações por semana e dossiês das máquinas."
+
+[repos.fase-1-nivelamento]
+title = "Fase 1 · Nivelamento"
+
+# [repos.materiais-time1]
+# title = "Materiais do Time 1"
+# publish = true   # repo privado: o conteúdo passa a ser público no hub
+
+# ---------------------------------------------------------------------------
+# Por arquivo (opcional): "repo/caminho" = { title, description, kind, hidden, authors, date }
+# O mesmo vale como <meta name="hub:..."> dentro da própria página, que é o jeito preferido.
+# ---------------------------------------------------------------------------
+[files]
+# "pdc-inferencia/testbench/index.html" = { kind = "leaderboard", authors = ["Hugo"] }

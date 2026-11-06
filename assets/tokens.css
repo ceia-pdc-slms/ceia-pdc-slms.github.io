@@ -1,0 +1,75 @@
+/* =====================================================================
+   Tokens do time de Compressão e Testbench (PDC · SLMs)
+   Um só sistema para o hub, os laboratórios e a bancada.
+
+   Cores de dados (validadas para daltonismo e contraste, claro e escuro):
+     --c1 azul    quantização   · também a cor da marca
+     --c2 laranja pruning
+     --c3 verde   destilação
+     --c4 roxo    KV cache
+   Use sempre nessa ordem; não invente uma quinta cor de série.
+
+   Este arquivo só define variáveis e a barra superior (.appbar): é seguro
+   incluir em qualquer página, inclusive nas que têm CSS próprio.
+   ===================================================================== */
+:root {
+  --bg: #F6F6F3; --surface: #FFFFFF; --sunken: #EEEEE9; --raised: #FFFFFF;
+  --line: #E2E2DB; --line-strong: #CACAC1;
+  --fg: #14161A; --muted: #5A5F67; --faint: #8B9098;
+  --c1: #2B50D6; --c2: #D2602A; --c3: #138A72; --c4: #8A4FC7;
+  --c1-soft: #E7ECFB; --c2-soft: #FAEADF; --c3-soft: #DFF2EC; --c4-soft: #F0E7FA;
+  --accent: var(--c1); --accent-soft: var(--c1-soft); --on-accent: #FFFFFF;
+  --ok: #1D7F4E; --ok-soft: #E0F2E8; --warn: #A86A12; --warn-soft: #F8EDD9; --bad: #BE3A2C; --bad-soft: #F9E3E0;
+  --code-bg: #14161A; --code-fg: #E3E6EA; --code-dim: #7D848E; --code-hot: #262B33; --code-key: #8FA6FF;
+  --font-sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "IBM Plex Sans Condensed", "IBM Plex Sans", "Arial Narrow", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+  --r-sm: 6px; --r: 10px; --r-lg: 16px;
+  --shadow: 0 1px 2px rgba(20, 22, 26, .04), 0 4px 16px rgba(20, 22, 26, .05);
+  --ease: cubic-bezier(.2, .7, .2, 1);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0D0F12; --surface: #15181D; --sunken: #101317; --raised: #1B1F25;
+  --line: #252A31; --line-strong: #363C45;
+  --fg: #E6E8EB; --muted: #9AA1AA; --faint: #69707A;
+  --c1: #5F7BF0; --c2: #D9723F; --c3: #22A688; --c4: #9F6FDB;
+  --c1-soft: #1A2240; --c2-soft: #33211A; --c3-soft: #12302A; --c4-soft: #281E38;
+  --on-accent: #FFFFFF;
+  --ok: #4CC38A; --ok-soft: #13301F; --warn: #E3AA4F; --warn-soft: #352812; --bad: #F07A6E; --bad-soft: #3A1B18;
+  --code-bg: #08090B; --code-hot: #1E232A;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 6px 20px rgba(0, 0, 0, .25);
+  color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #0D0F12; --surface: #15181D; --sunken: #101317; --raised: #1B1F25;
+  --line: #252A31; --line-strong: #363C45;
+  --fg: #E6E8EB; --muted: #9AA1AA; --faint: #69707A;
+  --c1: #5F7BF0; --c2: #D9723F; --c3: #22A688; --c4: #9F6FDB;
+  --c1-soft: #1A2240; --c2-soft: #33211A; --c3-soft: #12302A; --c4-soft: #281E38;
+  --on-accent: #FFFFFF;
+  --ok: #4CC38A; --ok-soft: #13301F; --warn: #E3AA4F; --warn-soft: #352812; --bad: #F07A6E; --bad-soft: #3A1B18;
+  --code-bg: #08090B; --code-hot: #1E232A;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 6px 20px rgba(0, 0, 0, .25);
+  color-scheme: dark }
+
+/* ---------- barra superior comum ---------- */
+.appbar, .appbar * { box-sizing: border-box; }
+.appbar { position: sticky; top: 0; z-index: 20; background: color-mix(in srgb, var(--bg) 86%, transparent); backdrop-filter: saturate(1.4) blur(10px); border-bottom: 1px solid var(--line); }
+.appbar-in { max-width: 1280px; margin: 0 auto; padding: 0 24px; height: 60px; display: flex; align-items: center; gap: 28px; }
+.marca { display: flex; align-items: center; gap: 10px; text-decoration: none; flex: none; color: var(--fg); }
+.appnav a, .appnav a:visited { color: var(--muted); }
+.marca svg { display: block; }
+.marca b { font: 600 1.02rem/1.1 var(--font-display); letter-spacing: .01em; display: block; }
+.marca small { font-size: .68rem; color: var(--muted); letter-spacing: .08em; text-transform: uppercase; display: block; }
+.appnav { display: flex; gap: 4px; margin-left: auto; align-items: center; }
+.appnav a { text-decoration: none; color: var(--muted); font-size: .9rem; padding: 7px 12px; border-radius: var(--r-sm); transition: color .2s, background-color .2s; }
+.appnav a:hover { color: var(--fg); background: var(--sunken); }
+.appnav a[aria-current="page"] { color: var(--fg); background: var(--sunken); font-weight: 500; }
+.tema-btn { border: 1px solid var(--line); background: var(--surface); border-radius: var(--r-sm); width: 34px; height: 34px; display: grid; place-items: center; cursor: pointer; color: var(--muted); margin-left: 6px; transition: color .2s, border-color .2s; }
+.tema-btn:hover { color: var(--fg); border-color: var(--line-strong); }
+
+@media (max-width: 760px) {
+  .appbar-in { padding: 0 16px; gap: 12px; }
+  .marca small { display: none; }
+  .appnav a { padding: 7px 8px; font-size: .84rem; }
+}

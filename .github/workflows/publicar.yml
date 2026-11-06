@@ -1,0 +1,49 @@
+name: Publicar hub
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "17 * * * *"          # a cada hora: pega o que os outros repos publicaram
+  workflow_dispatch:
+  repository_dispatch:
+    types: [fonte-atualizada]     # disparado pelos repos-fonte (ver README)
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0            # histórico completo: datas e autores dos posts
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+      - name: Montar o site
+        run: python build.py
+        env:
+          # github.token só enxerga repos públicos. Para incluir um repo privado
+          # (publish = true no hub.toml), crie o segredo HUB_TOKEN com leitura nele.
+          GH_TOKEN: ${{ secrets.HUB_TOKEN || github.token }}
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - id: deploy
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,64 @@
+/* Estilos do hub. Inclua depois de tokens.css e tema.css (vindos do pdc-inferencia). */
+a { text-underline-offset: 3px; }
+.hero { padding: 88px 0 8px; max-width: 900px; }
+.hero-acoes { display: flex; gap: 10px; margin-top: 28px; flex-wrap: wrap; }
+.numeros { display: flex; gap: 40px; margin: 36px 0 0; flex-wrap: wrap; }
+.numeros div { display: flex; flex-direction: column-reverse; }
+.numeros dt { font: 500 .72rem var(--font-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.numeros dd { margin: 0; font: 600 2rem/1.1 var(--font-display); }
+
+.secao { padding-top: 72px; scroll-margin-top: 60px; }
+.secao-cab { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; flex-wrap: wrap; margin-bottom: 24px; }
+.secao-cab p { margin: 8px 0 0; color: var(--muted); }
+.filtros { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.filtros .seg { flex-wrap: wrap; }
+.filtros select.entrada { width: auto; height: 38px; border: 1px solid var(--line-strong); background: var(--surface); border-radius: var(--r); padding: 0 10px; font-size: .88rem; max-width: 100%; }
+.busca { display: flex; align-items: center; gap: 8px; background: var(--surface); border: 1px solid var(--line-strong); border-radius: var(--r); padding: 0 12px; height: 38px; transition: border-color .2s, box-shadow .2s; }
+.busca:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.busca input { border: 0; background: none; outline: none; width: 180px; font-size: .9rem; min-width: 0; }
+.busca svg { color: var(--faint); flex: none; }
+
+.grade { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 18px; }
+.item { display: flex; flex-direction: column; padding: 22px 24px; min-height: 250px; position: relative; overflow: hidden; transition: transform .35s var(--ease), box-shadow .35s var(--ease), border-color .2s; }
+.item:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: var(--line-strong); }
+.item::after { content: ""; position: absolute; inset: 0 0 auto 0; height: 3px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform .45s var(--ease); }
+.item:hover::after { transform: scaleX(1); }
+.item-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.item-top > .chip { max-width: 60%; overflow: hidden; text-overflow: ellipsis; }
+.item-tipo { font: 500 .72rem var(--font-mono); letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+.item h3 { margin: 32px 0 10px; font: 600 1.35rem/1.18 var(--font-display); letter-spacing: -.005em; }
+.item-link { text-decoration: none; }
+.item-link::before { content: ""; position: absolute; inset: 0; z-index: 0; } /* o card inteiro é clicável */
+.item p { margin: 0; color: var(--muted); font-size: .92rem; overflow-wrap: anywhere; }
+.item-meta { margin-top: auto; padding-top: 22px; display: flex; justify-content: space-between; align-items: center; font: .76rem var(--font-mono); color: var(--muted); gap: 12px; }
+.item-acoes { display: inline-flex; gap: 14px; align-items: center; flex: none; }
+.fonte { position: relative; z-index: 1; color: var(--muted); display: inline-flex; gap: 4px; align-items: center; }
+.fonte:hover { color: var(--fg); }
+.ir { color: var(--fg); font-family: var(--font-sans); font-weight: 500; font-size: .88rem; display: inline-flex; gap: 6px; align-items: center; }
+.ir svg { transition: transform .3s var(--ease); }
+.item:hover .ir svg { transform: translateX(4px); }
+.repo { display: flex; flex-direction: column; padding: 22px 24px; min-height: 220px; position: relative; overflow: hidden; transition: transform .35s var(--ease), box-shadow .35s var(--ease), border-color .2s; }
+.repo:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: var(--line-strong); }
+.repo h3 { margin: 28px 0 10px; font: 600 1.5rem/1.15 var(--font-display); }
+.repo p { margin: 0; color: var(--muted); font-size: .92rem; }
+.repo:hover .ir svg { transform: translateX(4px); }
+.vazio { color: var(--muted); padding: 32px 0; }
+
+.publicar { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; padding: 32px; align-items: center; }
+.publicar h2 { font-size: 1.7rem; }
+.publicar p { color: var(--muted); }
+.publicar code { background: var(--sunken); padding: 1px 5px; border-radius: 4px; }
+.publicar pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+.rodape a { color: var(--muted); }
+
+@media (max-width: 560px) {
+  .appnav a[href="#publicar"], .appnav a[href="#frentes"] { display: none; }
+  .filtros select.entrada { width: 100%; }
+}
+@media (max-width: 860px) {
+  .hero { padding-top: 48px; }
+  .publicar { grid-template-columns: 1fr; padding: 22px; }
+  .grade { grid-template-columns: 1fr; }
+  .filtros, .busca { width: 100%; }
+  .busca input { width: 100%; }
+}
